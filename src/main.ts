@@ -1,5 +1,5 @@
-const antimono = () => {
-  return 'antimono' // TODO Implement actual functionality
-}
+#!/usr/bin/env bun
+import makeCli from './makeCli.ts'
 
-export default antimono
+const cli = makeCli()
+await cli()

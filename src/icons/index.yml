@@ -1,0 +1,22 @@
+moon:
+  name: Moon
+  code: E100
+  source:
+    vendor: fa6
+    id: FaMoon
+sun:
+  name: Sun
+  code: E101
+  source:
+    vendor: gr
+    id: GrSun
+cog:
+  name: Cog
+  code: E102
+  source:
+    vendor: hi2
+    id: HiOutlineCog8Tooth
+openrouter:
+  name: OpenRouter logo
+  code: E103
+  source: openrouter.svg
