@@ -98,6 +98,12 @@ namespace Antimono.FontInstaller {
 }
 
 $installedCount = 0
+if (-not (Test-Path -LiteralPath $fontsFolder)) {
+  New-Item -ItemType Directory -Path $fontsFolder | Out-Null
+}
+if (-not (Test-Path -LiteralPath $fontsRegistryPath)) {
+  New-Item -Path $fontsRegistryPath | Out-Null
+}
 foreach ($font in $fonts) {
   $source = Join-Path $sourceFolder $font.File
   $destination = Join-Path $fontsFolder $font.File
@@ -106,8 +112,6 @@ foreach ($font in $fonts) {
     continue
   }
 
-  New-Item -ItemType Directory -Path $fontsFolder -Force | Out-Null
-  New-Item -Path $fontsRegistryPath -Force | Out-Null
   Copy-Item -LiteralPath $source -Destination $destination -Force
   New-ItemProperty -Path $fontsRegistryPath -Name $font.RegistryName -Value $destination -PropertyType String -Force | Out-Null
   $loadedFonts = [Antimono.FontInstaller.NativeMethods]::AddFontResourceEx($destination, 0, [IntPtr]::Zero)
