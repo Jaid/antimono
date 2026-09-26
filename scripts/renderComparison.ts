@@ -8,7 +8,8 @@ type FontSpec = {
 }
 
 const projectRoot = path.join(import.meta.dir, '..')
-const outputFile = path.resolve(projectRoot, Bun.argv[2] ?? 'temp/font-comparison.png')
+const outputFile = path.resolve(projectRoot, Bun.argv[2] ?? 'out/comparison/font-comparison.png')
+const htmlOutputFile = outputFile.replace(/\.[^.]+$/u, '.html')
 const fontFolder = path.join(projectRoot, 'out', 'woff2')
 const readFont = async (fileName: string) => {
   const sourceFile = path.join(fontFolder, fileName)
@@ -257,6 +258,7 @@ ${fontRules}
 </main>
 </body>
 </html>`
+await Bun.write(htmlOutputFile, html)
 const result = await capturePage.save(
   {html},
   outputFile,
@@ -269,3 +271,4 @@ const result = await capturePage.save(
   },
 )
 console.log(`${result.buffer.byteLength} bytes · ${Math.round(result.passedTime)} ms → ${path.relative(projectRoot, outputFile)}`)
+console.log(`HTML → ${path.relative(projectRoot, htmlOutputFile)}`)
